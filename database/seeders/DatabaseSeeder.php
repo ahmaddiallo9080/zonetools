@@ -1,0 +1,25 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\User;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+
+class DatabaseSeeder extends Seeder
+{
+    /**
+     * Crée le compte du gérant (identifiants modifiables dans le fichier .env).
+     */
+    public function run(): void
+    {
+        User::updateOrCreate(
+            ['email' => env('ADMIN_EMAIL', 'admin@zonetools.local')],
+            [
+                'name' => env('ADMIN_NAME', 'Gérant'),
+                'password' => Hash::make(env('ADMIN_PASSWORD', 'password')),
+                'email_verified_at' => now(),
+            ]
+        );
+    }
+}
