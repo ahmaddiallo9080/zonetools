@@ -1,0 +1,12 @@
+# Hébergement mutualisé (ex. LWS) : le sous-domaine pointe sur la racine du projet.
+# Toutes les requêtes sont redirigées en interne vers public/ :
+# le reste du projet (.env, storage, vendor...) n'est jamais accessible.
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^(?!public/)(.*)$ public/$1 [L]
+</IfModule>
+
+# Aucun fichier caché (.env, .git...) ne doit être servi
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
