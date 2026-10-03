@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AgentController;
+use App\Http\Controllers\BilanController;
 use App\Http\Controllers\DepenseController;
 use App\Http\Controllers\ForfaitController;
 use App\Http\Controllers\LotController;
@@ -71,6 +72,17 @@ Route::middleware('auth')->group(function () {
     // Finances : dépenses des sites
     Route::get('depenses/{depense}/justificatif', [DepenseController::class, 'justificatif'])->name('depenses.justificatif');
     Route::resource('depenses', DepenseController::class);
+
+    // Bilans mensuels (comptes rendus de fin de mois)
+    Route::prefix('bilans')->name('bilans.')->controller(BilanController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('{mois}/global', 'imprimer')->name('global')->where('mois', '\d{4}-\d{2}');
+        Route::get('{mois}/export', 'export')->name('export')->where('mois', '\d{4}-\d{2}');
+        Route::get('{mois}/sites/{site}', 'show')->name('show')->where('mois', '\d{4}-\d{2}');
+        Route::post('{mois}/sites/{site}/cloture', 'cloturer')->name('cloturer')->where('mois', '\d{4}-\d{2}');
+        Route::patch('{mois}/sites/{site}/observations', 'observations')->name('observations')->where('mois', '\d{4}-\d{2}');
+        Route::delete('{mois}/sites/{site}/cloture', 'rouvrir')->name('rouvrir')->where('mois', '\d{4}-\d{2}');
+    });
 
     // Module 8 : Statistiques
     Route::get('statistiques', [StatistiqueController::class, 'index'])->name('statistiques.index');

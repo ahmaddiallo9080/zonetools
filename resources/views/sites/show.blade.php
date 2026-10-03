@@ -111,6 +111,18 @@
                 @endforelse
             </div>
 
+            {{-- Bilans mensuels --}}
+            <div class="card p-6">
+                <h3 class="font-semibold text-gray-900">Bilans mensuels</h3>
+                <div class="mt-3 flex flex-wrap gap-2 text-sm">
+                    @foreach ([now()->subMonthNoOverflow(), now()] as $m)
+                        <a href="{{ route('bilans.show', [$m->format('Y-m'), $site]) }}" class="rounded-lg border border-gray-200 px-3 py-1.5 font-medium text-gray-700 hover:border-primary-300 hover:text-primary-600">
+                            {{ ucfirst($m->translatedFormat('F Y')) }}
+                        </a>
+                    @endforeach
+                </div>
+            </div>
+
             {{-- Dépenses du site --}}
             <div class="card p-6">
                 <div class="flex items-center justify-between">

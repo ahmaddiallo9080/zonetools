@@ -39,6 +39,7 @@
             <div class="space-y-1">
                 <x-sidebar-link route="versements.index" icon="banknotes" :active="request()->routeIs('versements.*', 'paiements.*')">Versements</x-sidebar-link>
                 <x-sidebar-link route="depenses.index" icon="receipt">Dépenses</x-sidebar-link>
+                <x-sidebar-link route="bilans.index" icon="calendar">Bilans mensuels</x-sidebar-link>
                 <x-sidebar-link route="statistiques.index" icon="chart">Statistiques</x-sidebar-link>
             </div>
         </div>
@@ -46,12 +47,12 @@
 
     <div class="border-t border-white/10 p-3 space-y-1">
         <x-sidebar-link route="profile.edit" icon="cog" :active="request()->routeIs('profile.*')">Paramètres</x-sidebar-link>
-        {{-- <form method="POST" action="{{ route('logout') }}">
+        <form method="POST" action="{{ route('logout') }}">
             @csrf
             <button type="submit" class="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-primary-100 hover:bg-white/10 hover:text-white">
                 <x-icon name="logout" class="h-5 w-5" />
                 Déconnexion
             </button>
-        </form> --}}
+        </form>
     </div>
 </div>
